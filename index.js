@@ -96,6 +96,15 @@ app.post("/login", async (req, res) => {
             console.log(rows[0])
             const valid = bcrypt.compareSync(password, rows[0]['hashed_password']);
             if (valid) {
+				const token = jwt.sign(
+					{
+						userId: rows[0].id,
+					},
+					"ZJGX1QL7ri6BGJWj3t",
+					{ expiresIn: "1h"}
+				);
+				res.cookie("user", token);
+				
                 res.json({
                     success: true,
                     message: "Login credential is correct",
@@ -136,7 +145,6 @@ app.post("/register", async (req, res) => {
     if (!containsUpperCase(password)) return res.json({success: false, error: 'Password must contain at least one uppercase character.'})
 
     if (!containsDigit(password)) return res.json({success: false, error: 'Password must contain at least one digit.'})
-
 
 
     // if (password.length < 8 && !containsUpperCase(password) && !containsLowerCase(password) && !containsDigit(password)) {
