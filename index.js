@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2");
 const bodyParser = require("body-parser");
+var jwt = require("jsonwebtoken");
 
 const connection = mysql.createConnection({
 	host: "server2.bsthun.com",
