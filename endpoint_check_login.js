@@ -8,6 +8,7 @@ module.exports = (req, res) => {
     console.log(decoded);
 
     if(decoded) {
+        res.cookie("userID", decoded.userId);
         res.json ({
             success: true,
             message: "User is logged in with ID: " + decoded.userId,
